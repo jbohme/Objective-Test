@@ -14,6 +14,7 @@ class BankAccountTest extends TestCase
             accountNumber: 1
         );
 
+        $this->assertEquals(1, $bankAccount->getAccountNumber());
         $this->assertEquals(0, $bankAccount->getBalance());
     }
 

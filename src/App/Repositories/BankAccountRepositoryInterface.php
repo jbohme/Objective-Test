@@ -12,4 +12,6 @@ interface BankAccountRepositoryInterface
     public function existsByAccountNumber(int $accountNumber): bool;
 
     public function save(BankAccount $bankAccount): void;
+
+    public function update(BankAccount $bankAccount): void;
 }
