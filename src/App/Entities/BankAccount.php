@@ -6,8 +6,8 @@ namespace App\Entities;
 class BankAccount
 {
     public function __construct(
-        private readonly int   $accountNumber,
-        private readonly float $balance = 0
+        private readonly int    $accountNumber,
+        private float $balance = 0
     )
     {
         $this->validateNegativeBalance();
@@ -18,6 +18,14 @@ class BankAccount
         if ($this->balance < 0) {
             throw new \DomainException("Balance cannot be negative.");
         }
+    }
+
+    public function withdrawAmount(float $amount): void
+    {
+        if ($this->balance < $amount) {
+            throw new \DomainException("Insufficient balance for this operation");
+        }
+        $this->balance -= $amount;
     }
 
     public function getAccountNumber(): int

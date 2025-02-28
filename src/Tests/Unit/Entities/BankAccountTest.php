@@ -37,4 +37,29 @@ class BankAccountTest extends TestCase
             balance: "2.50"
         );
     }
+
+    public function testShouldThrowExceptionIfThereIsNotEnoughBalanceInTheAccount()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("Insufficient balance for this operation");
+
+        $bankAccount = new BankAccount(
+            accountNumber: 1,
+            balance: 10.50
+        );
+
+        $bankAccount->withdrawAmount(11.00);
+    }
+
+    public function testShouldWithdrawAnAmount()
+    {
+        $bankAccount = new BankAccount(
+            accountNumber: 1,
+            balance: 10.50
+        );
+
+        $bankAccount->withdrawAmount(10.00);
+
+        $this->assertEquals(0.50, $bankAccount->getBalance());
+    }
 }
