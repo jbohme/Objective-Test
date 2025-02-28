@@ -19,7 +19,7 @@ class BankAccountTest extends TestCase
 
     public function testIfBankAccountValidationThrowsExceptionWithNegativeBalance()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessage("Balance cannot be negative.");
 
         new BankAccount(

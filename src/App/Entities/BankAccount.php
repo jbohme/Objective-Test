@@ -13,10 +13,10 @@ class BankAccount
         $this->validateNegativeBalance();
     }
 
-    public function validateNegativeBalance(): void
+    private function validateNegativeBalance(): void
     {
         if ($this->balance < 0) {
-            throw new \InvalidArgumentException("Balance cannot be negative.");
+            throw new \DomainException("Balance cannot be negative.");
         }
     }
 
