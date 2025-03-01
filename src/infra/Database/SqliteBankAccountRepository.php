@@ -1,7 +1,5 @@
 <?php
 
-//declare(strict_types=1);
-
 namespace Infra\Database;
 
 use App\Entities\BankAccount;

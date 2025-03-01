@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use InvalidArgumentException;
+
 readonly class Request
 {
     /**
@@ -16,17 +18,15 @@ readonly class Request
 
     /**
      * @param string $key
-     * @param mixed|null $default
-     * @return string|null
+     * @return mixed
      */
-    public function get(string $key, mixed $default = null): ?string
+    public function get(string $key): mixed
     {
-        $value = $this->body[$key] ?? $this->query[$key] ?? $default;
-        return is_scalar($value) ? (string) $value : null;
+        return $this->body[$key] ?? $this->query[$key];
     }
 
     /**
-     * @return array<string,string>
+     * @return array<string,mixed>
      */
     public function all(): array
     {
@@ -35,23 +35,60 @@ readonly class Request
 
     /**
      * @param string $key
-     * @param mixed|null $default
-     * @return string|null
+     * @return mixed
      */
-    public function query(string $key, mixed $default = null): ?string
+    public function query(string $key): mixed
     {
-        $value = $this->query[$key] ?? $default;
-        return is_scalar($value) ? (string) $value : null;
+        return $this->query[$key];
     }
 
     /**
      * @param string $key
-     * @param mixed|null $default
-     * @return string|null
+     * @return mixed
      */
-    public function body(string $key, mixed $default = null): ?string
+    public function body(string $key): mixed
     {
-        $value = $this->body[$key] ?? $default;
-        return is_scalar($value) ? (string) $value : null;
+        return $this->body[$key];
     }
+
+    /**
+     * @param array<string, string> $rules
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    public function validate(array $rules): void
+    {
+        foreach ($rules as $field => $type) {
+            $value = $this->get($field);
+
+            if (is_null($value)) {
+                throw new InvalidArgumentException("$field is required");
+            }
+
+            $error = false;
+            switch ($type) {
+                case 'integer':
+                    if (!is_int($value)) {
+                        $error = true;
+                    }
+                    break;
+                case 'float':
+                    if (!is_float($value)) {
+                        $error = true;
+                    }
+                    break;
+                case 'string':
+                    if (!is_string($value)) {
+                        $error = true;
+                    }
+                    break;
+            }
+
+            if ($error) {
+                throw new InvalidArgumentException("$field must be of type $type");
+            }
+        }
+    }
+
+
 }

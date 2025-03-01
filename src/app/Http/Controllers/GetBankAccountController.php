@@ -9,6 +9,7 @@ use App\Services\GetBankAccount\GetBankAccountOutputDTO;
 use App\Services\GetBankAccount\GetBankAccountService;
 use DomainException;
 use Exception;
+use Infra\Logger\Logger;
 use TypeError;
 
 readonly class GetBankAccountController
@@ -23,14 +24,14 @@ readonly class GetBankAccountController
     {
         try {
             $account = $this->service->execute(new GetBankAccountInputDTO((int) $request->get('numero_conta')));
-            $this->json(201, $this->dataMapper($account));
+            $this->json(200, $this->dataMapper($account));
         } catch (DomainException $exception) {
-            $this->json(404);
+            $this->json(404, ['message' => $exception->getMessage()]);
         } catch (Exception|TypeError $exception) {
-            $this->json(500);
+            $this->json(500, ['message' => 'Internal Server Error']);
+            Logger::error($exception->getMessage(), $exception);
         }
     }
-
 
     /**
      * @param GetBankAccountOutputDTO $outputDTO

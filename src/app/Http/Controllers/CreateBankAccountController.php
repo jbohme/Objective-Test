@@ -9,6 +9,8 @@ use App\Services\CreateBankAccount\CreateBankAccountOutputDTO;
 use App\Services\CreateBankAccount\CreateBankAccountService;
 use DomainException;
 use Exception;
+use Infra\Logger\Logger;
+use InvalidArgumentException;
 use TypeError;
 
 class CreateBankAccountController
@@ -22,6 +24,7 @@ class CreateBankAccountController
     public function handle(Request $request): void
     {
         try {
+            $request->validate($this->rules());
             $account = $this->service->execute(
                 new CreateBankAccountInputDTO(
                     accountNumber: (int) $request->get('numero_conta'),
@@ -30,9 +33,12 @@ class CreateBankAccountController
             );
             $this->json(201, $this->dataMapper($account));
         } catch (DomainException $exception) {
-            $this->json(409);
+            $this->json(409, ['message' => $exception->getMessage()]);
+        } catch (InvalidArgumentException $exception) {
+            $this->json(422, ['message' => $exception->getMessage()]);
         } catch (Exception|TypeError $exception) {
-            $this->json(500);
+            $this->json(500, ['message' => 'Internal Server Error']);
+            Logger::error($exception->getMessage(), $exception);
         }
     }
 
@@ -45,6 +51,17 @@ class CreateBankAccountController
         return [
             'numero_conta' => $outputDTO->getAccountNumber(),
             'saldo' => $outputDTO->getBalance(),
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    private function rules(): array
+    {
+        return [
+            'numero_conta' => 'integer',
+            'saldo' => 'float',
         ];
     }
 }
