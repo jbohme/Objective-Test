@@ -3,11 +3,12 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "App\\": "App"
+      "App\\": "app/",
+      "Infra\\": "infra/"
     },
     "autoload-dev": {
       "psr-4": {
-        "Tests\\": "Tests"
+        "Tests\\": "tests/"
       }
     }
   },
@@ -15,5 +16,9 @@
     "symfony/var-dumper": "^7.2",
     "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^12.0"
+  },
+  "require": {
+    "php-di/php-di": "^7.0",
+    "ext-pdo": "*"
   }
 }
