@@ -14,7 +14,7 @@ class TransactionTest extends TestCase
         $id = uniqid();
         $transaction = new Transaction(
             id: $id,
-            paymentMethod: PaymentMethods::C->value,
+            paymentMethod: PaymentMethods::CREDIT_CARD->value,
             accountNumber: 1,
             originalAmount: 10.50,
             feeAmount: 0.5,
@@ -22,7 +22,7 @@ class TransactionTest extends TestCase
         );
 
         $this->assertEquals($id, $transaction->getId());
-        $this->assertEquals('CREDIT_CARD', $transaction->getPaymentMethod());
+        $this->assertEquals('C', $transaction->getPaymentMethod());
         $this->assertEquals(1, $transaction->getAccountNumber());
         $this->assertEquals(10.50, $transaction->getOriginalAmount());
         $this->assertEquals(0.5, $transaction->getFeeAmount());

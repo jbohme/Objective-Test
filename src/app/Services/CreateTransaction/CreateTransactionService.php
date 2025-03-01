@@ -32,7 +32,7 @@ class CreateTransactionService
 
         $transaction = new Transaction(
             id: uniqid(),
-            paymentMethod: $inputDTO->getPaymentMethod()->value,
+            paymentMethod: $inputDTO->getPaymentMethod()->name,
             accountNumber: $inputDTO->getAccountNumber(),
             originalAmount: $inputDTO->getAmount(),
             feeAmount: $feeAmount,

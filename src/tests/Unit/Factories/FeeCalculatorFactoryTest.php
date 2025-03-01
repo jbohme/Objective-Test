@@ -14,7 +14,7 @@ class FeeCalculatorFactoryTest extends TestCase
     public function testShouldCreateCreditCardFee()
     {
         $factory = new FeeCalculatorFactory();
-        $feeCalculator = $factory->create(PaymentMethods::C);
+        $feeCalculator = $factory->create(PaymentMethods::CREDIT_CARD);
 
         $this->assertInstanceOf(CreditCardFeeCalculator::class, $feeCalculator);
     }
@@ -22,7 +22,7 @@ class FeeCalculatorFactoryTest extends TestCase
     public function testShouldCreateDebitCardFee()
     {
         $factory = new FeeCalculatorFactory();
-        $feeCalculator = $factory->create(PaymentMethods::D);
+        $feeCalculator = $factory->create(PaymentMethods::DEBIT_CARD);
 
         $this->assertInstanceOf(DebitCardFeeCalculator::class, $feeCalculator);
     }
@@ -30,7 +30,7 @@ class FeeCalculatorFactoryTest extends TestCase
     public function testShouldCreatePixFee()
     {
         $factory = new FeeCalculatorFactory();
-        $feeCalculator = $factory->create(PaymentMethods::P);
+        $feeCalculator = $factory->create(PaymentMethods::PIX);
 
         $this->assertInstanceOf(PIXFeeCalculator::class, $feeCalculator);
     }

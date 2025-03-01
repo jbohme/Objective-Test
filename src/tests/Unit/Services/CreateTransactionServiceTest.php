@@ -38,7 +38,7 @@ class CreateTransactionServiceTest extends TestCase
         $inputDTO = new CreateTransactionInputDTO(
             accountNumber: 1,
             amount: 5.0,
-            paymentMethod: PaymentMethods::C
+            paymentMethod: PaymentMethods::CREDIT_CARD
         );
 
         $transactionRepository->expects($this->once())->method('save');
@@ -64,7 +64,7 @@ class CreateTransactionServiceTest extends TestCase
             $mockFeeCalculatorFactory
         );
 
-        $inputDTO = new CreateTransactionInputDTO($bankAccount->getAccountNumber(), 4.0, PaymentMethods::C);
+        $inputDTO = new CreateTransactionInputDTO($bankAccount->getAccountNumber(), 4.0, PaymentMethods::CREDIT_CARD);
 
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Bank Account not found');

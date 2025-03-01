@@ -13,9 +13,9 @@ class FeeCalculatorFactory
     public function create(PaymentMethods $method): FeeCalculatorInterface
     {
         return match ($method) {
-            PaymentMethods::C => new CreditCardFeeCalculator(),
-            PaymentMethods::D => new DebitCardFeeCalculator(),
-            PaymentMethods::P => new PIXFeeCalculator(),
+            PaymentMethods::CREDIT_CARD => new CreditCardFeeCalculator(),
+            PaymentMethods::DEBIT_CARD => new DebitCardFeeCalculator(),
+            PaymentMethods::PIX => new PIXFeeCalculator(),
         };
     }
 }

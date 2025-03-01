@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
+use DateTimeImmutable;
+
 class Transaction
 {
-    protected float $amountWithFee;
+    private DateTimeImmutable $createdAt;
 
     public function __construct(
         protected string $id,
@@ -16,6 +18,7 @@ class Transaction
         protected float $finalAmount
     )
     {
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): string
@@ -46,5 +49,10 @@ class Transaction
     public function getFinalAmount(): float
     {
         return $this->finalAmount;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }
