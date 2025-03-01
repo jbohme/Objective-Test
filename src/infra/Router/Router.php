@@ -31,6 +31,7 @@ readonly class Router
         $routeKey = "$method $uri";
 
         if (!isset($this->routes[$routeKey])) {
+            header('Content-Type: application/json');
             http_response_code(404);
             echo json_encode(['error' => 'Route not found.']);
             return;
