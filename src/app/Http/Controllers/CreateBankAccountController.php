@@ -13,8 +13,7 @@ class CreateBankAccountController
     use Response;
     public function __construct(
         private CreateBankAccountService $service,
-    )
-    {
+    ) {
     }
 
     public function handle(Request $request): void

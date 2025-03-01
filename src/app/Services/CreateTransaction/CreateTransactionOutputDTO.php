@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Services\CreateTransaction;
-class CreateTransactionOutputDTO {
+
+class CreateTransactionOutputDTO
+{
     public function __construct(
         protected int $accountNumber,
         protected float $balance,
-    )
-    {
+    ) {
     }
 
     public function getAccountNumber(): int

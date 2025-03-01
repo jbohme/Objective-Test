@@ -13,8 +13,7 @@ class CreateTransactionService
         private readonly BankAccountRepositoryInterface $bankAccountRepository,
         private readonly TransactionRepositoryInterface $transactionRepository,
         private readonly FeeCalculatorFactory           $feeCalculatorFactory,
-    )
-    {
+    ) {
     }
 
     public function execute(CreateTransactionInputDTO $inputDTO): CreateTransactionOutputDTO

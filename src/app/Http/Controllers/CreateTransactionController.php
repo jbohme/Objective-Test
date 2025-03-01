@@ -14,8 +14,7 @@ class CreateTransactionController
     use Response;
     public function __construct(
         private CreateTransactionService $service,
-    )
-    {
+    ) {
     }
 
     public function handle(Request $request): void

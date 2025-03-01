@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Services\CreateBankAccount;
+
 class CreateBankAccountInputDTO
 {
     public function __construct(
         protected int $accountNumber,
         protected float $balance,
-    )
-    {
+    ) {
     }
 
     public function getAccountNumber(): int

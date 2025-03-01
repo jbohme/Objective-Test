@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entities;
@@ -8,8 +9,7 @@ class BankAccount
     public function __construct(
         private readonly int    $accountNumber,
         private float $balance = 0
-    )
-    {
+    ) {
         $this->validateNegativeBalance();
     }
 

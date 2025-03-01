@@ -1,3 +1,4 @@
 vendor
 .idea
-src/database/database.sqlite
+./src/database/database.sqlite
+./src/.php-cs-fixer.cache

@@ -10,8 +10,7 @@ class CreateTransactionInputDTO
         protected int $accountNumber,
         protected float $amount,
         protected PaymentMethods $paymentMethod,
-    )
-    {
+    ) {
     }
 
     public function getAccountNumber(): int

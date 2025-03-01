@@ -8,8 +8,7 @@ class GetBankAccountService
 {
     public function __construct(
         private BankAccountRepositoryInterface $bankAccountRepository
-    )
-    {
+    ) {
     }
 
     public function execute(GetBankAccountInputDTO $inputDTO): GetBankAccountOutputDTO

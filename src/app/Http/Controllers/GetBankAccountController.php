@@ -8,14 +8,12 @@ use App\Services\GetBankAccount\GetBankAccountInputDTO;
 use App\Services\GetBankAccount\GetBankAccountOutputDTO;
 use App\Services\GetBankAccount\GetBankAccountService;
 
-
 readonly class GetBankAccountController
 {
     use Response;
     public function __construct(
         private GetBankAccountService $service,
-    )
-    {
+    ) {
     }
 
     public function handle(Request $request): void

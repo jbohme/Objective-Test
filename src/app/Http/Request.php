@@ -7,8 +7,7 @@ readonly class Request
     public function __construct(
         private array $query = [],
         private array $body = [],
-    )
-    {
+    ) {
     }
 
     public function get(string $key, mixed $default = null): mixed

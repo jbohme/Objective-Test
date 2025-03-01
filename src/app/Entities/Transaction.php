@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entities;
@@ -16,8 +17,7 @@ class Transaction
         protected float $originalAmount,
         protected float $feeAmount,
         protected float $finalAmount
-    )
-    {
+    ) {
         $this->createdAt = new DateTimeImmutable();
     }
 

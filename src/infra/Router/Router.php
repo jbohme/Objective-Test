@@ -10,8 +10,7 @@ class Router
     public function __construct(
         private Container $container,
         private array $routes
-    )
-    {
+    ) {
     }
 
     public function dispatch(): void
