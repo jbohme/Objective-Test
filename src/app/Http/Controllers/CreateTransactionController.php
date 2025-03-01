@@ -8,12 +8,15 @@ use App\Http\Response;
 use App\Services\CreateTransaction\CreateTransactionInputDTO;
 use App\Services\CreateTransaction\CreateTransactionOutputDTO;
 use App\Services\CreateTransaction\CreateTransactionService;
+use Exception;
+use TypeError;
+use DomainException;
 
 class CreateTransactionController
 {
     use Response;
     public function __construct(
-        private CreateTransactionService $service,
+        private readonly CreateTransactionService $service,
     ) {
     }
 
@@ -22,19 +25,23 @@ class CreateTransactionController
         try {
             $account = $this->service->execute(
                 new CreateTransactionInputDTO(
-                    accountNumber: $request->get('numero_conta'),
-                    amount:  $request->get('valor'),
-                    paymentMethod:  PaymentMethods::tryFrom($request->get('forma_pagamento')),
+                    accountNumber: (int) $request->get('numero_conta'),
+                    amount:  (float) $request->get('valor'),
+                    paymentMethod:  PaymentMethods::from((string) $request->get('forma_pagamento')),
                 )
             );
             $this->json(201, $this->dataMapper($account));
-        } catch (\DomainException $exception) {
+        } catch (DomainException $exception) {
             $this->json(404);
-        } catch (\Exception|\TypeError $exception) {
+        } catch (Exception|TypeError $exception) {
             $this->json(500);
         }
     }
 
+    /**
+     * @param CreateTransactionOutputDTO $outputDTO
+     * @return array<string,mixed>
+     */
     private function dataMapper(CreateTransactionOutputDTO $outputDTO): array
     {
         return [

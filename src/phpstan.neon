@@ -1,0 +1,7 @@
+parameters:
+    level: 7
+    paths:
+        - %currentWorkingDirectory%
+    excludePaths:
+        - %currentWorkingDirectory%/vendor
+        - %currentWorkingDirectory%/tests

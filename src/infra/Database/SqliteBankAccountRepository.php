@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types=1);
+//declare(strict_types=1);
 
 namespace Infra\Database;
 
 use App\Entities\BankAccount;
 use App\Repositories\BankAccountRepositoryInterface;
+use PDO;
 
 class SqliteBankAccountRepository implements BankAccountRepositoryInterface
 {
@@ -34,9 +35,9 @@ class SqliteBankAccountRepository implements BankAccountRepositoryInterface
         $stmt = $pdo->prepare('SELECT account_number, balance FROM bank_accounts WHERE account_number = :account_number');
         $stmt->execute(['account_number' => $accountNumber]);
 
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$row) {
+        if (!is_array($row)) {
             return null;
         }
 

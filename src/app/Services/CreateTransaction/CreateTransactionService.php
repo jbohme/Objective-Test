@@ -6,13 +6,14 @@ use App\Entities\Transaction;
 use App\Factories\FeeCalculatorFactory;
 use App\Repositories\BankAccountRepositoryInterface;
 use App\Repositories\TransactionRepositoryInterface;
+use DomainException;
 
-class CreateTransactionService
+readonly class CreateTransactionService
 {
     public function __construct(
-        private readonly BankAccountRepositoryInterface $bankAccountRepository,
-        private readonly TransactionRepositoryInterface $transactionRepository,
-        private readonly FeeCalculatorFactory           $feeCalculatorFactory,
+        private BankAccountRepositoryInterface $bankAccountRepository,
+        private TransactionRepositoryInterface $transactionRepository,
+        private FeeCalculatorFactory           $feeCalculatorFactory,
     ) {
     }
 
@@ -20,7 +21,7 @@ class CreateTransactionService
     {
         $bankAccount = $this->bankAccountRepository->findByAccountNumber($inputDTO->getAccountNumber());
         if (is_null($bankAccount)) {
-            throw new \DomainException('Bank Account not found');
+            throw new DomainException('Bank Account not found');
         }
 
         $feeCalculator = $this->feeCalculatorFactory->create($inputDTO->getPaymentMethod());

@@ -7,10 +7,15 @@ use App\Repositories\BankAccountRepositoryInterface;
 use App\Services\GetBankAccount\GetBankAccountService;
 use App\Services\GetBankAccount\GetBankAccountInputDTO;
 use App\Services\GetBankAccount\GetBankAccountOutputDTO;
+use DomainException;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 class GetBankAccountServiceTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testShouldReturnAccountIfExists(): void
     {
         $bankAccountEntity = new BankAccount(accountNumber: 1, balance: 478.90);
@@ -28,6 +33,9 @@ class GetBankAccountServiceTest extends TestCase
         $this->assertEquals(478.90, $result->getBalance());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testShouldThrowExceptionIfAccountNotFound(): void
     {
         $input = new GetBankAccountInputDTO(1);
@@ -39,7 +47,7 @@ class GetBankAccountServiceTest extends TestCase
 
         $service = new GetBankAccountService($bankAccountRepository);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage('The bank account could not be found.');
 
         $service->execute($input);

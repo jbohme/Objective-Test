@@ -4,8 +4,9 @@ namespace App\Services\CreateBankAccount;
 
 use App\Entities\BankAccount;
 use App\Repositories\BankAccountRepositoryInterface;
+use DomainException;
 
-class CreateBankAccountService
+readonly class CreateBankAccountService
 {
     public function __construct(
         private BankAccountRepositoryInterface $bankAccountRepository
@@ -15,7 +16,7 @@ class CreateBankAccountService
     public function execute(CreateBankAccountInputDTO $inputDTO): CreateBankAccountOutputDTO
     {
         if ($this->bankAccountRepository->existsByAccountNumber($inputDTO->getAccountNumber())) {
-            throw new \DomainException("Account already exists.");
+            throw new DomainException("Account already exists.");
         }
         $bankAccount = new BankAccount(
             accountNumber: $inputDTO->getAccountNumber(),

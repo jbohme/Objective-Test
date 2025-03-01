@@ -4,15 +4,25 @@ namespace Infra\Router;
 
 use App\Http\Request;
 use DI\Container;
+use DI\DependencyException;
+use DI\NotFoundException;
 
-class Router
+readonly class Router
 {
+    /**
+     * @param Container $container
+     * @param array<string, array{0: string, 1: string}> $routes
+     */
     public function __construct(
         private Container $container,
-        private array $routes
+        private array     $routes
     ) {
     }
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function dispatch(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
@@ -29,7 +39,7 @@ class Router
         [$controllerClass, $method] = $this->routes[$routeKey];
         $controller = $this->container->get($controllerClass);
 
-        $body = json_decode(file_get_contents('php://input'), true) ?? [];
+        $body = json_decode((string) file_get_contents('php://input'), true) ?? [];
         $request = new Request($_GET, $body);
 
         $controller->$method($request);

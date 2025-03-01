@@ -3,6 +3,8 @@
 namespace Tests\Unit\Services;
 
 use App\Entities\FeeCalculatorInterface;
+use DomainException;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use App\Services\CreateTransaction\CreateTransactionService;
 use App\Repositories\BankAccountRepositoryInterface;
@@ -14,7 +16,10 @@ use App\Services\CreateTransaction\CreateTransactionInputDTO;
 
 class CreateTransactionServiceTest extends TestCase
 {
-    public function testShouldCreateTransaction()
+    /**
+     * @throws Exception
+     */
+    public function testShouldCreateTransaction(): void
     {
         $bankAccount = new BankAccount(accountNumber: 1, balance: 10.0);
 
@@ -48,7 +53,10 @@ class CreateTransactionServiceTest extends TestCase
         $this->assertEquals(4.95, $outputDTO->getBalance());
     }
 
-    public function testShouldThrowExceptionIfAccountNotFound()
+    /**
+     * @throws Exception
+     */
+    public function testShouldThrowExceptionIfAccountNotFound(): void
     {
         $bankAccount = new BankAccount(accountNumber: 1, balance: 10.0);
 
@@ -66,7 +74,7 @@ class CreateTransactionServiceTest extends TestCase
 
         $inputDTO = new CreateTransactionInputDTO($bankAccount->getAccountNumber(), 4.0, PaymentMethods::CREDIT_CARD);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Bank Account not found');
 
         $service->execute($inputDTO);

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class FeeCalculatorFactoryTest extends TestCase
 {
-    public function testShouldCreateCreditCardFee()
+    public function testShouldCreateCreditCardFee(): void
     {
         $factory = new FeeCalculatorFactory();
         $feeCalculator = $factory->create(PaymentMethods::CREDIT_CARD);
@@ -19,7 +19,7 @@ class FeeCalculatorFactoryTest extends TestCase
         $this->assertInstanceOf(CreditCardFeeCalculator::class, $feeCalculator);
     }
 
-    public function testShouldCreateDebitCardFee()
+    public function testShouldCreateDebitCardFee(): void
     {
         $factory = new FeeCalculatorFactory();
         $feeCalculator = $factory->create(PaymentMethods::DEBIT_CARD);
@@ -27,7 +27,7 @@ class FeeCalculatorFactoryTest extends TestCase
         $this->assertInstanceOf(DebitCardFeeCalculator::class, $feeCalculator);
     }
 
-    public function testShouldCreatePixFee()
+    public function testShouldCreatePixFee(): void
     {
         $factory = new FeeCalculatorFactory();
         $feeCalculator = $factory->create(PaymentMethods::PIX);

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Entities;
 
 use App\Entities\BankAccount;
+use DomainException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 class BankAccountTest extends TestCase
 {
-    public function testCreateBankAccount()
+    public function testCreateBankAccount(): void
     {
         $bankAccount = new BankAccount(
             accountNumber: 1
@@ -19,9 +21,9 @@ class BankAccountTest extends TestCase
         $this->assertEquals(0, $bankAccount->getBalance());
     }
 
-    public function testIfBankAccountValidationThrowsExceptionWithNegativeBalance()
+    public function testIfBankAccountValidationThrowsExceptionWithNegativeBalance(): void
     {
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage("Balance cannot be negative.");
 
         new BankAccount(
@@ -30,9 +32,9 @@ class BankAccountTest extends TestCase
         );
     }
 
-    public function testIfBankAccountValidationThrowsExceptionWithBalanceOfADifferentTypeThanFloat()
+    public function testIfBankAccountValidationThrowsExceptionWithBalanceOfADifferentTypeThanFloat(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
 
         new BankAccount(
             accountNumber: 1,
@@ -40,9 +42,9 @@ class BankAccountTest extends TestCase
         );
     }
 
-    public function testShouldThrowExceptionIfThereIsNotEnoughBalanceInTheAccount()
+    public function testShouldThrowExceptionIfThereIsNotEnoughBalanceInTheAccount(): void
     {
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage("Insufficient balance for this operation");
 
         $bankAccount = new BankAccount(
@@ -53,7 +55,7 @@ class BankAccountTest extends TestCase
         $bankAccount->withdrawAmount(11.00);
     }
 
-    public function testShouldWithdrawAnAmount()
+    public function testShouldWithdrawAnAmount(): void
     {
         $bankAccount = new BankAccount(
             accountNumber: 1,

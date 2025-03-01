@@ -8,11 +8,16 @@ use App\Repositories\BankAccountRepositoryInterface;
 use App\Services\CreateBankAccount\CreateBankAccountService;
 use App\Services\CreateBankAccount\CreateBankAccountInputDTO;
 use App\Services\CreateBankAccount\CreateBankAccountOutputDTO;
+use DomainException;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 class CreateBankAccountServiceTest extends TestCase
 {
-    public function testShouldCreateAccountIfItDoesNotExist()
+    /**
+     * @throws Exception
+     */
+    public function testShouldCreateAccountIfItDoesNotExist(): void
     {
         $input = new CreateBankAccountInputDTO(accountNumber: 1, balance: 150.00);
 
@@ -27,7 +32,10 @@ class CreateBankAccountServiceTest extends TestCase
         $this->assertEquals(150, $output->getBalance());
     }
 
-    public function testShouldThrowExceptionIfAccountAlreadyExists()
+    /**
+     * @throws Exception
+     */
+    public function testShouldThrowExceptionIfAccountAlreadyExists(): void
     {
         $input = new CreateBankAccountInputDTO(accountNumber: 1, balance: 150.00);
 
@@ -41,7 +49,7 @@ class CreateBankAccountServiceTest extends TestCase
 
         $service = new CreateBankAccountService($bankAccountRepository);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage("Account already exists.");
 
         $service->execute($input);

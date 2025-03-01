@@ -14,8 +14,13 @@
  *
  * @return array
  */
+
+use App\Http\Controllers\CreateBankAccountController;
+use App\Http\Controllers\CreateTransactionController;
+use App\Http\Controllers\GetBankAccountController;
+
 return [
-    'GET /conta' => [\App\Http\Controllers\GetBankAccountController::class, 'handle'],
-    'POST /conta' => [\App\Http\Controllers\CreateBankAccountController::class, 'handle'],
-    'POST /transacao' => [\App\Http\Controllers\CreateTransactionController::class, 'handle'],
+    'GET /conta' => [GetBankAccountController::class, 'handle'],
+    'POST /conta' => [CreateBankAccountController::class, 'handle'],
+    'POST /transacao' => [CreateTransactionController::class, 'handle'],
 ];

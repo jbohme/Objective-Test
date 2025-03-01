@@ -4,6 +4,11 @@ namespace App\Http;
 
 trait Response
 {
+    /**
+     * @param int $statusCode
+     * @param array<string,mixed> $data
+     * @return void
+     */
     protected function json(int $statusCode, array $data = []): void
     {
         header('Content-Type: application/json');

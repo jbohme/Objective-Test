@@ -3,8 +3,9 @@
 namespace App\Services\GetBankAccount;
 
 use App\Repositories\BankAccountRepositoryInterface;
+use DomainException;
 
-class GetBankAccountService
+readonly class GetBankAccountService
 {
     public function __construct(
         private BankAccountRepositoryInterface $bankAccountRepository
@@ -16,7 +17,7 @@ class GetBankAccountService
         $bankAccount = $this->bankAccountRepository->findByAccountNumber($inputDTO->getAccountNumber());
 
         if (is_null($bankAccount)) {
-            throw new \DomainException("The bank account could not be found.");
+            throw new DomainException("The bank account could not be found.");
         }
         return new GetBankAccountOutputDTO(accountNumber: $bankAccount->getAccountNumber(), balance: $bankAccount->getBalance());
     }

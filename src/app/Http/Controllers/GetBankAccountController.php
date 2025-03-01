@@ -7,6 +7,9 @@ use App\Http\Response;
 use App\Services\GetBankAccount\GetBankAccountInputDTO;
 use App\Services\GetBankAccount\GetBankAccountOutputDTO;
 use App\Services\GetBankAccount\GetBankAccountService;
+use DomainException;
+use Exception;
+use TypeError;
 
 readonly class GetBankAccountController
 {
@@ -19,15 +22,20 @@ readonly class GetBankAccountController
     public function handle(Request $request): void
     {
         try {
-            $account = $this->service->execute(new GetBankAccountInputDTO($request->get('numero_conta')));
+            $account = $this->service->execute(new GetBankAccountInputDTO((int) $request->get('numero_conta')));
             $this->json(201, $this->dataMapper($account));
-        } catch (\DomainException $exception) {
+        } catch (DomainException $exception) {
             $this->json(404);
-        } catch (\Exception|\TypeError $exception) {
+        } catch (Exception|TypeError $exception) {
             $this->json(500);
         }
     }
 
+
+    /**
+     * @param GetBankAccountOutputDTO $outputDTO
+     * @return array<string,mixed>
+     */
     private function dataMapper(GetBankAccountOutputDTO $outputDTO): array
     {
         return [

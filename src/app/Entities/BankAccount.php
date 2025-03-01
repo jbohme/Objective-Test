@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
+use DomainException;
+
 class BankAccount
 {
     public function __construct(
@@ -16,14 +18,14 @@ class BankAccount
     private function validateNegativeBalance(): void
     {
         if ($this->balance < 0) {
-            throw new \DomainException("Balance cannot be negative.");
+            throw new DomainException("Balance cannot be negative.");
         }
     }
 
     public function withdrawAmount(float $amount): void
     {
         if ($this->balance < $amount) {
-            throw new \DomainException("Insufficient balance for this operation");
+            throw new DomainException("Insufficient balance for this operation");
         }
         $this->balance -= $amount;
     }
