@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "562bcc70-24aa-4f30-8a5b-2157eebb7dfb",
+		"name": "ObjectiveTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11811903",
+		"_collection_link": "https://quintal-4832.postman.co/workspace/Quintal~09f12ae6-a5a2-4ae5-a5a9-6fd9b5efe883/collection/11811903-562bcc70-24aa-4f30-8a5b-2157eebb7dfb?action=share&source=collection_link&creator=11811903"
+	},
+	"item": [
+		{
+			"name": "Buscar Conta",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/conta?numero_conta=1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"conta"
+					],
+					"query": [
+						{
+							"key": "numero_conta",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Conta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numero_conta\": 1,\n    \"saldo\": 180.37\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/conta",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"conta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Transação",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"forma_pagamento\": \"D\",\n    \"numero_conta\": 1,\n    \"valor\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/transacao",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"transacao"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
