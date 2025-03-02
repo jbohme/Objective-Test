@@ -1,9 +1,10 @@
 <?php
 
-namespace Infra\Database;
+namespace Infra\Database\Repositories;
 
 use App\Entities\BankAccount;
 use App\Repositories\BankAccountRepositoryInterface;
+use Infra\Database\Connection;
 use PDO;
 
 class SqliteBankAccountRepository implements BankAccountRepositoryInterface

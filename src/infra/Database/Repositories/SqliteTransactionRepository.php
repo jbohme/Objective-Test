@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Infra\Database;
+namespace Infra\Database\Repositories;
 
 use App\Entities\Transaction;
 use App\Repositories\TransactionRepositoryInterface;
+use Infra\Database\Connection;
 
 class SqliteTransactionRepository implements TransactionRepositoryInterface
 {

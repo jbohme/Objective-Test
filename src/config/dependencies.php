@@ -1,10 +1,10 @@
 <?php
 
+use App\Repositories\BankAccountRepositoryInterface;
 use App\Repositories\TransactionRepositoryInterface;
 use DI\ContainerBuilder;
-use App\Repositories\BankAccountRepositoryInterface;
-use Infra\Database\SqliteBankAccountRepository;
-use Infra\Database\SqliteTransactionRepository;
+use Infra\Database\Repositories\SqliteBankAccountRepository;
+use Infra\Database\Repositories\SqliteTransactionRepository;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([

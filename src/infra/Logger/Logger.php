@@ -8,7 +8,7 @@ class Logger
 {
     private static string $logDir = __DIR__ . '/../../storage/logs';
 
-    public static function log(string $message, string $level = 'INFO', ?Throwable $exception = null): void
+    private static function log(string $message, string $level = 'INFO', ?Throwable $exception = null): void
     {
         $date = date('Y-m-d H:i:s');
         $fileName = date('Y-m-d') . '.log';

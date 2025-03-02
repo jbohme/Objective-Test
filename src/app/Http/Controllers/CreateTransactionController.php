@@ -64,7 +64,7 @@ class CreateTransactionController
         return [
             'numero_conta' => 'integer',
             'valor' => 'float',
-            'forma_pagamento' => 'string'
+            'forma_pagamento' => 'string|PaymentMethod',
         ];
     }
 }

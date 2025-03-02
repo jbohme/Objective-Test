@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Entities\Enums\PaymentMethods;
 use InvalidArgumentException;
 
 readonly class Request
@@ -58,37 +59,44 @@ readonly class Request
      */
     public function validate(array $rules): void
     {
-        foreach ($rules as $field => $type) {
+        foreach ($rules as $field => $rule) {
             $value = $this->get($field);
 
             if (is_null($value)) {
                 throw new InvalidArgumentException("$field is required");
             }
-
-            $error = false;
-            switch ($type) {
-                case 'integer':
-                    if (!is_int($value)) {
-                        $error = true;
-                    }
-                    break;
-                case 'float':
-                    if (!is_float($value)) {
-                        $error = true;
-                    }
-                    break;
-                case 'string':
-                    if (!is_string($value)) {
-                        $error = true;
-                    }
-                    break;
-            }
-
-            if ($error) {
-                throw new InvalidArgumentException("$field must be of type $type");
+            $validationOptions = explode('|', $rule);
+            foreach ($validationOptions as $validationOption) {
+                $error = false;
+                switch ($validationOption) {
+                    case 'integer':
+                        if (!is_int($value)) {
+                            $error = true;
+                        }
+                        break;
+                    case 'float':
+                        if (!is_float($value)) {
+                            $error = true;
+                        }
+                        break;
+                    case 'string':
+                        if (!is_string($value)) {
+                            $error = true;
+                        }
+                        break;
+                    case 'PaymentMethod':
+                        if (!in_array(
+                            $value,
+                            array_map(fn (PaymentMethods $method) => $method->value, PaymentMethods::cases())
+                        )) {
+                            $error = true;
+                        }
+                        break;
+                }
+                if ($error) {
+                    throw new InvalidArgumentException("$field must be of type $validationOption");
+                }
             }
         }
     }
-
-
 }
