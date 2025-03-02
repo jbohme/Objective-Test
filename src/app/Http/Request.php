@@ -23,7 +23,7 @@ readonly class Request
      */
     public function get(string $key): mixed
     {
-        return $this->body[$key] ?? $this->query[$key];
+        return $this->body[$key] ?? $this->query[$key] ?? null;
     }
 
     /**
@@ -40,7 +40,7 @@ readonly class Request
      */
     public function query(string $key): mixed
     {
-        return $this->query[$key];
+        return $this->query[$key] ?? null;
     }
 
     /**
